@@ -226,4 +226,14 @@ The boot sequence will run, then the globe will appear with satellites orbiting 
 
 ---
 
+## ⚖️ License & Intellectual Property
+
+**Proprietary and Confidential — All Rights Reserved.**
+
+Copyright (c) 2026 **Cigarfeine** (Project Nemesis).
+This repository is published solely for educational code review and portfolio demonstration under Section D.5 of the GitHub Terms of Service. **No right or license is granted** to copy, mirror, reverse-engineer, monetize, or create derivative works from this codebase or its UI/UX styling paradigms. Unauthorized usage constitutes willful copyright infringement. See the [LICENSE](LICENSE) file for comprehensive legal covenants and anti-theft terms.
+
+---
+
 *"The map is not the territory. But this comes close."*
+
