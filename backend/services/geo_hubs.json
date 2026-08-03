@@ -1,0 +1,1102 @@
+[
+  {
+    "id": "washington",
+    "name": "Washington DC",
+    "region": "North America",
+    "country": "USA",
+    "lat": 38.9072,
+    "lon": -77.0369,
+    "type": "capital",
+    "tier": "critical"
+  },
+  {
+    "id": "moscow",
+    "name": "Moscow",
+    "region": "Europe",
+    "country": "Russia",
+    "lat": 55.7558,
+    "lon": 37.6173,
+    "type": "capital",
+    "tier": "critical"
+  },
+  {
+    "id": "beijing",
+    "name": "Beijing",
+    "region": "Asia",
+    "country": "China",
+    "lat": 39.9042,
+    "lon": 116.4074,
+    "type": "capital",
+    "tier": "critical"
+  },
+  {
+    "id": "brussels",
+    "name": "Brussels",
+    "region": "Europe",
+    "country": "Belgium",
+    "lat": 50.8503,
+    "lon": 4.3517,
+    "type": "capital",
+    "tier": "critical"
+  },
+  {
+    "id": "london",
+    "name": "London",
+    "region": "Europe",
+    "country": "UK",
+    "lat": 51.5074,
+    "lon": -0.1278,
+    "type": "capital",
+    "tier": "critical"
+  },
+  {
+    "id": "jerusalem",
+    "name": "Jerusalem",
+    "region": "Middle East",
+    "country": "Israel",
+    "lat": 31.7683,
+    "lon": 35.2137,
+    "type": "capital",
+    "tier": "major"
+  },
+  {
+    "id": "telaviv",
+    "name": "Tel Aviv",
+    "region": "Middle East",
+    "country": "Israel",
+    "lat": 32.0853,
+    "lon": 34.7818,
+    "type": "capital",
+    "tier": "major"
+  },
+  {
+    "id": "haifa",
+    "name": "Haifa",
+    "region": "Middle East",
+    "country": "Israel",
+    "lat": 32.794,
+    "lon": 34.9896,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "dimona",
+    "name": "Dimona",
+    "region": "Middle East",
+    "country": "Israel",
+    "lat": 31.07,
+    "lon": 35.03,
+    "type": "strategic",
+    "tier": "notable"
+  },
+  {
+    "id": "tehran",
+    "name": "Tehran",
+    "region": "Middle East",
+    "country": "Iran",
+    "lat": 35.6892,
+    "lon": 51.389,
+    "type": "capital",
+    "tier": "major"
+  },
+  {
+    "id": "isfahan",
+    "name": "Isfahan",
+    "region": "Middle East",
+    "country": "Iran",
+    "lat": 32.6546,
+    "lon": 51.668,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "abudhabi",
+    "name": "Abu Dhabi",
+    "region": "Middle East",
+    "country": "UAE",
+    "lat": 24.4539,
+    "lon": 54.3773,
+    "type": "capital",
+    "tier": "major"
+  },
+  {
+    "id": "dubai",
+    "name": "Dubai",
+    "region": "Middle East",
+    "country": "UAE",
+    "lat": 25.2048,
+    "lon": 55.2708,
+    "type": "capital",
+    "tier": "major"
+  },
+  {
+    "id": "doha",
+    "name": "Doha",
+    "region": "Middle East",
+    "country": "Qatar",
+    "lat": 25.2854,
+    "lon": 51.531,
+    "type": "capital",
+    "tier": "major"
+  },
+  {
+    "id": "manama",
+    "name": "Manama",
+    "region": "Middle East",
+    "country": "Bahrain",
+    "lat": 26.2285,
+    "lon": 50.586,
+    "type": "capital",
+    "tier": "major"
+  },
+  {
+    "id": "riyadh",
+    "name": "Riyadh",
+    "region": "Middle East",
+    "country": "Saudi Arabia",
+    "lat": 24.7136,
+    "lon": 46.6753,
+    "type": "capital",
+    "tier": "major"
+  },
+  {
+    "id": "jeddah",
+    "name": "Jeddah",
+    "region": "Middle East",
+    "country": "Saudi Arabia",
+    "lat": 21.4858,
+    "lon": 39.1925,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "baghdad",
+    "name": "Baghdad",
+    "region": "Middle East",
+    "country": "Iraq",
+    "lat": 33.3152,
+    "lon": 44.3661,
+    "type": "capital",
+    "tier": "major"
+  },
+  {
+    "id": "erbil",
+    "name": "Erbil",
+    "region": "Middle East",
+    "country": "Iraq",
+    "lat": 36.1912,
+    "lon": 44.0119,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "basra",
+    "name": "Basra",
+    "region": "Middle East",
+    "country": "Iraq",
+    "lat": 30.5085,
+    "lon": 47.7804,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "kuwait",
+    "name": "Kuwait City",
+    "region": "Middle East",
+    "country": "Kuwait",
+    "lat": 29.3759,
+    "lon": 47.9774,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "muscat",
+    "name": "Muscat",
+    "region": "Middle East",
+    "country": "Oman",
+    "lat": 23.588,
+    "lon": 58.3829,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "amman",
+    "name": "Amman",
+    "region": "Middle East",
+    "country": "Jordan",
+    "lat": 31.9454,
+    "lon": 35.9284,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "ankara",
+    "name": "Ankara",
+    "region": "Middle East",
+    "country": "Turkey",
+    "lat": 39.9334,
+    "lon": 32.8597,
+    "type": "capital",
+    "tier": "major"
+  },
+  {
+    "id": "istanbul",
+    "name": "Istanbul",
+    "region": "Middle East",
+    "country": "Turkey",
+    "lat": 41.0082,
+    "lon": 28.9784,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "cairo",
+    "name": "Cairo",
+    "region": "Middle East",
+    "country": "Egypt",
+    "lat": 30.0444,
+    "lon": 31.2357,
+    "type": "capital",
+    "tier": "major"
+  },
+  {
+    "id": "kyiv",
+    "name": "Kyiv",
+    "region": "Europe",
+    "country": "Ukraine",
+    "lat": 50.4501,
+    "lon": 30.5234,
+    "type": "capital",
+    "tier": "major"
+  },
+  {
+    "id": "taipei",
+    "name": "Taipei",
+    "region": "Asia",
+    "country": "Taiwan",
+    "lat": 25.033,
+    "lon": 121.5654,
+    "type": "capital",
+    "tier": "major"
+  },
+  {
+    "id": "tokyo",
+    "name": "Tokyo",
+    "region": "Asia",
+    "country": "Japan",
+    "lat": 35.6762,
+    "lon": 139.6503,
+    "type": "capital",
+    "tier": "major"
+  },
+  {
+    "id": "seoul",
+    "name": "Seoul",
+    "region": "Asia",
+    "country": "South Korea",
+    "lat": 37.5665,
+    "lon": 126.978,
+    "type": "capital",
+    "tier": "major"
+  },
+  {
+    "id": "pyongyang",
+    "name": "Pyongyang",
+    "region": "Asia",
+    "country": "North Korea",
+    "lat": 39.0392,
+    "lon": 125.7625,
+    "type": "capital",
+    "tier": "major"
+  },
+  {
+    "id": "newdelhi",
+    "name": "New Delhi",
+    "region": "Asia",
+    "country": "India",
+    "lat": 28.6139,
+    "lon": 77.209,
+    "type": "capital",
+    "tier": "major"
+  },
+  {
+    "id": "mumbai",
+    "name": "Mumbai",
+    "region": "Asia",
+    "country": "India",
+    "lat": 19.076,
+    "lon": 72.8777,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "islamabad",
+    "name": "Islamabad",
+    "region": "Asia",
+    "country": "Pakistan",
+    "lat": 33.6844,
+    "lon": 73.0479,
+    "type": "capital",
+    "tier": "major"
+  },
+  {
+    "id": "kabul",
+    "name": "Kabul",
+    "region": "Asia",
+    "country": "Afghanistan",
+    "lat": 34.5553,
+    "lon": 69.2075,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "hanoi",
+    "name": "Hanoi",
+    "region": "Asia",
+    "country": "Vietnam",
+    "lat": 21.0285,
+    "lon": 105.8542,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "manila",
+    "name": "Manila",
+    "region": "Asia",
+    "country": "Philippines",
+    "lat": 14.5995,
+    "lon": 120.9842,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "jakarta",
+    "name": "Jakarta",
+    "region": "Asia",
+    "country": "Indonesia",
+    "lat": -6.2088,
+    "lon": 106.8456,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "bangkok",
+    "name": "Bangkok",
+    "region": "Asia",
+    "country": "Thailand",
+    "lat": 13.7563,
+    "lon": 100.5018,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "singapore",
+    "name": "Singapore",
+    "region": "Asia",
+    "country": "Singapore",
+    "lat": 1.3521,
+    "lon": 103.8198,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "canberra",
+    "name": "Canberra",
+    "region": "Oceania",
+    "country": "Australia",
+    "lat": -35.2809,
+    "lon": 149.13,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "shanghai",
+    "name": "Shanghai",
+    "region": "Asia",
+    "country": "China",
+    "lat": 31.2304,
+    "lon": 121.4737,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "hongkong",
+    "name": "Hong Kong",
+    "region": "Asia",
+    "country": "China",
+    "lat": 22.3193,
+    "lon": 114.1694,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "paris",
+    "name": "Paris",
+    "region": "Europe",
+    "country": "France",
+    "lat": 48.8566,
+    "lon": 2.3522,
+    "type": "capital",
+    "tier": "major"
+  },
+  {
+    "id": "berlin",
+    "name": "Berlin",
+    "region": "Europe",
+    "country": "Germany",
+    "lat": 52.52,
+    "lon": 13.405,
+    "type": "capital",
+    "tier": "major"
+  },
+  {
+    "id": "rome",
+    "name": "Rome",
+    "region": "Europe",
+    "country": "Italy",
+    "lat": 41.9028,
+    "lon": 12.4964,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "madrid",
+    "name": "Madrid",
+    "region": "Europe",
+    "country": "Spain",
+    "lat": 40.4168,
+    "lon": -3.7038,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "warsaw",
+    "name": "Warsaw",
+    "region": "Europe",
+    "country": "Poland",
+    "lat": 52.2297,
+    "lon": 21.0122,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "bucharest",
+    "name": "Bucharest",
+    "region": "Europe",
+    "country": "Romania",
+    "lat": 44.4268,
+    "lon": 26.1025,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "helsinki",
+    "name": "Helsinki",
+    "region": "Europe",
+    "country": "Finland",
+    "lat": 60.1699,
+    "lon": 24.9384,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "stockholm",
+    "name": "Stockholm",
+    "region": "Europe",
+    "country": "Sweden",
+    "lat": 59.3293,
+    "lon": 18.0686,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "oslo",
+    "name": "Oslo",
+    "region": "Europe",
+    "country": "Norway",
+    "lat": 59.9139,
+    "lon": 10.7522,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "tallinn",
+    "name": "Tallinn",
+    "region": "Europe",
+    "country": "Estonia",
+    "lat": 59.437,
+    "lon": 24.7536,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "riga",
+    "name": "Riga",
+    "region": "Europe",
+    "country": "Latvia",
+    "lat": 56.9496,
+    "lon": 24.1052,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "vilnius",
+    "name": "Vilnius",
+    "region": "Europe",
+    "country": "Lithuania",
+    "lat": 54.6872,
+    "lon": 25.2797,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "athens",
+    "name": "Athens",
+    "region": "Europe",
+    "country": "Greece",
+    "lat": 37.9838,
+    "lon": 23.7275,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "belgrade",
+    "name": "Belgrade",
+    "region": "Europe",
+    "country": "Serbia",
+    "lat": 44.7866,
+    "lon": 20.4489,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "minsk",
+    "name": "Minsk",
+    "region": "Europe",
+    "country": "Belarus",
+    "lat": 53.9006,
+    "lon": 27.559,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "tbilisi",
+    "name": "Tbilisi",
+    "region": "Europe",
+    "country": "Georgia",
+    "lat": 41.7151,
+    "lon": 44.8271,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "chisinau",
+    "name": "Chisinau",
+    "region": "Europe",
+    "country": "Moldova",
+    "lat": 47.0105,
+    "lon": 28.8638,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "yerevan",
+    "name": "Yerevan",
+    "region": "Europe",
+    "country": "Armenia",
+    "lat": 40.1792,
+    "lon": 44.4991,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "baku",
+    "name": "Baku",
+    "region": "Europe",
+    "country": "Azerbaijan",
+    "lat": 40.4093,
+    "lon": 49.8671,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "ottawa",
+    "name": "Ottawa",
+    "region": "North America",
+    "country": "Canada",
+    "lat": 45.4215,
+    "lon": -75.6972,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "mexicocity",
+    "name": "Mexico City",
+    "region": "North America",
+    "country": "Mexico",
+    "lat": 19.4326,
+    "lon": -99.1332,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "brasilia",
+    "name": "Brasilia",
+    "region": "South America",
+    "country": "Brazil",
+    "lat": -15.7975,
+    "lon": -47.8919,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "buenosaires",
+    "name": "Buenos Aires",
+    "region": "South America",
+    "country": "Argentina",
+    "lat": -34.6037,
+    "lon": -58.3816,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "caracas",
+    "name": "Caracas",
+    "region": "South America",
+    "country": "Venezuela",
+    "lat": 10.4806,
+    "lon": -66.9036,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "bogota",
+    "name": "Bogota",
+    "region": "South America",
+    "country": "Colombia",
+    "lat": 4.711,
+    "lon": -74.0721,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "havana",
+    "name": "Havana",
+    "region": "North America",
+    "country": "Cuba",
+    "lat": 23.1136,
+    "lon": -82.3666,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "ethiopia",
+    "name": "Addis Ababa",
+    "region": "Africa",
+    "country": "Ethiopia",
+    "lat": 9.025,
+    "lon": 38.7469,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "nairobi",
+    "name": "Nairobi",
+    "region": "Africa",
+    "country": "Kenya",
+    "lat": -1.2921,
+    "lon": 36.8219,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "pretoria",
+    "name": "Pretoria",
+    "region": "Africa",
+    "country": "South Africa",
+    "lat": -25.7479,
+    "lon": 28.2293,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "lagos",
+    "name": "Lagos",
+    "region": "Africa",
+    "country": "Nigeria",
+    "lat": 6.5244,
+    "lon": 3.3792,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "kinshasa",
+    "name": "Kinshasa",
+    "region": "Africa",
+    "country": "DR Congo",
+    "lat": -4.4419,
+    "lon": 15.2663,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "mogadishu",
+    "name": "Mogadishu",
+    "region": "Africa",
+    "country": "Somalia",
+    "lat": 2.0469,
+    "lon": 45.3182,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "tripoli",
+    "name": "Tripoli",
+    "region": "Africa",
+    "country": "Libya",
+    "lat": 32.9022,
+    "lon": 13.18,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "tunis",
+    "name": "Tunis",
+    "region": "Africa",
+    "country": "Tunisia",
+    "lat": 36.8065,
+    "lon": 10.1815,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "algiers",
+    "name": "Algiers",
+    "region": "Africa",
+    "country": "Algeria",
+    "lat": 36.7538,
+    "lon": 3.0588,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "rabat",
+    "name": "Rabat",
+    "region": "Africa",
+    "country": "Morocco",
+    "lat": 34.0209,
+    "lon": -6.8416,
+    "type": "capital",
+    "tier": "notable"
+  },
+  {
+    "id": "gaza",
+    "name": "Gaza",
+    "region": "Middle East",
+    "country": "Palestine",
+    "lat": 31.5,
+    "lon": 34.47,
+    "type": "conflict",
+    "tier": "critical"
+  },
+  {
+    "id": "westbank",
+    "name": "West Bank",
+    "region": "Middle East",
+    "country": "Palestine",
+    "lat": 31.9,
+    "lon": 35.2,
+    "type": "conflict",
+    "tier": "major"
+  },
+  {
+    "id": "ukraine-front",
+    "name": "Ukraine Front",
+    "region": "Europe",
+    "country": "Ukraine",
+    "lat": 48.5,
+    "lon": 37.5,
+    "type": "conflict",
+    "tier": "critical"
+  },
+  {
+    "id": "taiwan-strait",
+    "name": "Taiwan Strait",
+    "region": "Asia",
+    "country": "International",
+    "lat": 24.5,
+    "lon": 119.5,
+    "type": "conflict",
+    "tier": "critical"
+  },
+  {
+    "id": "southchinasea",
+    "name": "South China Sea",
+    "region": "Asia",
+    "country": "International",
+    "lat": 12.0,
+    "lon": 114.0,
+    "type": "strategic",
+    "tier": "critical"
+  },
+  {
+    "id": "yemen",
+    "name": "Yemen",
+    "region": "Middle East",
+    "country": "Yemen",
+    "lat": 15.5527,
+    "lon": 48.5164,
+    "type": "conflict",
+    "tier": "major"
+  },
+  {
+    "id": "syria",
+    "name": "Syria",
+    "region": "Middle East",
+    "country": "Syria",
+    "lat": 34.8,
+    "lon": 39.0,
+    "type": "conflict",
+    "tier": "major"
+  },
+  {
+    "id": "lebanon",
+    "name": "Lebanon",
+    "region": "Middle East",
+    "country": "Lebanon",
+    "lat": 33.8547,
+    "lon": 35.8623,
+    "type": "conflict",
+    "tier": "major"
+  },
+  {
+    "id": "sudan",
+    "name": "Sudan",
+    "region": "Africa",
+    "country": "Sudan",
+    "lat": 15.5007,
+    "lon": 32.5599,
+    "type": "conflict",
+    "tier": "major"
+  },
+  {
+    "id": "sahel",
+    "name": "Sahel",
+    "region": "Africa",
+    "country": "International",
+    "lat": 15.0,
+    "lon": 0.0,
+    "type": "conflict",
+    "tier": "major"
+  },
+  {
+    "id": "myanmar",
+    "name": "Myanmar",
+    "region": "Asia",
+    "country": "Myanmar",
+    "lat": 19.7633,
+    "lon": 96.0785,
+    "type": "conflict",
+    "tier": "notable"
+  },
+  {
+    "id": "iraq-conflict",
+    "name": "Iraq Conflict",
+    "region": "Middle East",
+    "country": "Iraq",
+    "lat": 33.3,
+    "lon": 44.4,
+    "type": "conflict",
+    "tier": "major"
+  },
+  {
+    "id": "kashmir",
+    "name": "Kashmir",
+    "region": "Asia",
+    "country": "International",
+    "lat": 34.0837,
+    "lon": 74.7973,
+    "type": "conflict",
+    "tier": "notable"
+  },
+  {
+    "id": "golan",
+    "name": "Golan Heights",
+    "region": "Middle East",
+    "country": "International",
+    "lat": 33.0,
+    "lon": 35.8,
+    "type": "conflict",
+    "tier": "notable"
+  },
+  {
+    "id": "hormuz",
+    "name": "Strait of Hormuz",
+    "region": "Middle East",
+    "country": "International",
+    "lat": 26.5,
+    "lon": 56.5,
+    "type": "strategic",
+    "tier": "critical"
+  },
+  {
+    "id": "redsea",
+    "name": "Red Sea",
+    "region": "Middle East",
+    "country": "International",
+    "lat": 20.0,
+    "lon": 38.0,
+    "type": "strategic",
+    "tier": "critical"
+  },
+  {
+    "id": "suez",
+    "name": "Suez Canal",
+    "region": "Middle East",
+    "country": "Egypt",
+    "lat": 30.5,
+    "lon": 32.3,
+    "type": "strategic",
+    "tier": "critical"
+  },
+  {
+    "id": "baltic",
+    "name": "Baltic Sea",
+    "region": "Europe",
+    "country": "International",
+    "lat": 58.0,
+    "lon": 20.0,
+    "type": "strategic",
+    "tier": "major"
+  },
+  {
+    "id": "arctic",
+    "name": "Arctic",
+    "region": "Arctic",
+    "country": "International",
+    "lat": 75.0,
+    "lon": 0.0,
+    "type": "strategic",
+    "tier": "major"
+  },
+  {
+    "id": "blacksea",
+    "name": "Black Sea",
+    "region": "Europe",
+    "country": "International",
+    "lat": 43.0,
+    "lon": 35.0,
+    "type": "strategic",
+    "tier": "major"
+  },
+  {
+    "id": "malacca",
+    "name": "Strait of Malacca",
+    "region": "Asia",
+    "country": "International",
+    "lat": 2.5,
+    "lon": 101.5,
+    "type": "strategic",
+    "tier": "major"
+  },
+  {
+    "id": "panama",
+    "name": "Panama Canal",
+    "region": "North America",
+    "country": "Panama",
+    "lat": 9.08,
+    "lon": -79.68,
+    "type": "strategic",
+    "tier": "major"
+  },
+  {
+    "id": "gibraltar",
+    "name": "Strait of Gibraltar",
+    "region": "Europe",
+    "country": "International",
+    "lat": 35.96,
+    "lon": -5.5,
+    "type": "strategic",
+    "tier": "notable"
+  },
+  {
+    "id": "un-nyc",
+    "name": "United Nations",
+    "region": "North America",
+    "country": "USA",
+    "lat": 40.7489,
+    "lon": -73.968,
+    "type": "organization",
+    "tier": "critical"
+  },
+  {
+    "id": "nato-hq",
+    "name": "NATO HQ",
+    "region": "Europe",
+    "country": "Belgium",
+    "lat": 50.8796,
+    "lon": 4.4284,
+    "type": "organization",
+    "tier": "critical"
+  },
+  {
+    "id": "iaea-vienna",
+    "name": "IAEA",
+    "region": "Europe",
+    "country": "Austria",
+    "lat": 48.2352,
+    "lon": 16.4156,
+    "type": "organization",
+    "tier": "major"
+  },
+  {
+    "id": "ramstein",
+    "name": "Ramstein Air Base",
+    "region": "Europe",
+    "country": "Germany",
+    "lat": 49.4369,
+    "lon": 7.6003,
+    "type": "strategic",
+    "tier": "notable"
+  },
+  {
+    "id": "incirlik",
+    "name": "Incirlik Air Base",
+    "region": "Middle East",
+    "country": "Turkey",
+    "lat": 37.0021,
+    "lon": 35.4259,
+    "type": "strategic",
+    "tier": "notable"
+  },
+  {
+    "id": "diegogarcia",
+    "name": "Diego Garcia",
+    "region": "Indian Ocean",
+    "country": "UK",
+    "lat": -7.3195,
+    "lon": 72.4229,
+    "type": "strategic",
+    "tier": "notable"
+  },
+  {
+    "id": "guam",
+    "name": "Guam",
+    "region": "Pacific",
+    "country": "USA",
+    "lat": 13.4443,
+    "lon": 144.7937,
+    "type": "strategic",
+    "tier": "notable"
+  },
+  {
+    "id": "okinawa",
+    "name": "Okinawa",
+    "region": "Asia",
+    "country": "Japan",
+    "lat": 26.3344,
+    "lon": 127.8056,
+    "type": "strategic",
+    "tier": "notable"
+  }
+]

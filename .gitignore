@@ -1,0 +1,30 @@
+# Environments and Dependencies
+.venv/
+venv/
+env/
+node_modules/
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Database and Storage
+*.db
+*.sqlite
+*.sqlite3
+
+# Environment and Logs
+.env
+*.log
+
+# OS and Editor metadata
+*Zone.Identifier*
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo

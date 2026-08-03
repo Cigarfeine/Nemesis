@@ -1,0 +1,107 @@
+/**
+ * Project NEMESIS — Tactical Theme (Lean / Functional Build)
+ * Additive skin layer gated by [data-theme="tactical"] on app root.
+ * Zero continuous animations / keyframes.
+ */
+
+/* 1. Design tokens and core theme override mapping */
+[data-theme="tactical"] {
+  --nx-bg: #060705;
+  --nx-panel: #0A0C09;
+  --nx-border: #1C2418;
+  --nx-flir-a: #1B2A16;
+  --nx-flir-b: #2C4020;
+  --nx-flir-c: #0E1A0C;
+  --nx-green: #7CFF6B;
+  --nx-green-dim: #3E7A35;
+  --nx-red: #E8332E;
+  --nx-red-dim: #5A1614;
+  --nx-text: #C7D4C2;
+  --nx-text-dim: #4C5A47;
+
+  /* Override existing Blueprint design system tokens with lean tactical military palette */
+  --void: var(--nx-bg);
+  --surface: var(--nx-panel);
+  --panel: rgba(10, 12, 9, 0.95);
+  --panel-2: #141A13;
+  --panel-3: #1B241A;
+  --text: var(--nx-text);
+  --text-dim: var(--nx-text-dim);
+  --green: var(--nx-green);
+  --green-dim: var(--nx-green-dim);
+  --red: var(--nx-red);
+  --red-dim: var(--nx-red-dim);
+  
+  --cyan: var(--nx-green);
+  --cyan-dim: var(--nx-green-dim);
+  --cyan-bright: #A2FF95;
+  --cyan-border: var(--nx-border);
+  --cyan-glow: rgba(124, 255, 107, 0.12);
+}
+
+/* Apply background and text tokens when theme is active on root */
+[data-theme="tactical"],
+[data-theme="tactical"] body {
+  background-color: var(--nx-bg) !important;
+  color: var(--nx-text) !important;
+}
+
+/* 2.1 & 2.3 Static scanline texture and FLIR-tone background for optical viewport and globe canvas */
+[data-theme="tactical"] .nx-viewport {
+  position: relative;
+  background: radial-gradient(ellipse at 40% 60%, var(--nx-flir-b) 0%, var(--nx-flir-a) 45%, var(--nx-flir-c) 100%);
+}
+
+[data-theme="tactical"] #globe-container {
+  background: radial-gradient(ellipse at 40% 60%, var(--nx-flir-b) 0%, var(--nx-flir-a) 45%, var(--nx-flir-c) 100%) !important;
+}
+
+[data-theme="tactical"] .nx-viewport::before,
+[data-theme="tactical"] #globe-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(0,0,0,0.18), rgba(0,0,0,0.18) 1px, transparent 1px, transparent 3px);
+  z-index: 250;
+}
+
+/* 2.2 Track/correlation row pattern — static state, no transition loop */
+[data-theme="tactical"] .nx-track-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-family: inherit;
+  color: var(--nx-text);
+  border-bottom: 1px solid var(--nx-border);
+  background: var(--nx-panel);
+  padding: 4px 0;
+}
+
+[data-theme="tactical"] .nx-track-row > div {
+  padding: 4px 8px;
+  border: 1px solid var(--nx-border);
+  background: var(--nx-panel);
+  color: var(--nx-text);
+}
+
+[data-theme="tactical"] .nx-track-row .nx-status {
+  font-weight: bold;
+  color: var(--nx-green);
+}
+
+[data-theme="tactical"] .nx-track-row[data-status="active"] > div {
+  color: var(--nx-red);
+  border-color: var(--nx-red-dim);
+  background: rgba(232,51,46,0.08);
+}
+
+/* 3. Scrollbar affordances in tactical mode */
+[data-theme="tactical"] #sat-list::-webkit-scrollbar-thumb,
+[data-theme="tactical"] #maneuver-list::-webkit-scrollbar-thumb {
+  background: var(--nx-border);
+}
+[data-theme="tactical"] #sat-list::-webkit-scrollbar-thumb:hover,
+[data-theme="tactical"] #maneuver-list::-webkit-scrollbar-thumb:hover {
+  background: var(--nx-green);
+}

@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="tactical">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>PROJECT NEMESIS — Active Intelligence Platform</title>
+  <meta name="description" content="Real-time tactical intelligence fusion platform — satellites, flights, ships, OSINT and space weather." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="css/nemesis.css" />
+  <link rel="stylesheet" href="css/tactical.css" />
+
+  <!-- 3D & Visualisation Libraries -->
+  <script src="https://unpkg.com/three@0.157.0/build/three.min.js"></script>
+  <script src="https://unpkg.com/globe.gl@2.32.1/dist/globe.gl.min.js"></script>
+  <script src="https://unpkg.com/deck.gl@8.9.0/dist.min.js"></script>
+  <script src="https://unpkg.com/3d-force-graph@1.73.3/dist/3d-force-graph.min.js"></script>
+
+  <!-- Leaflet 2D map (must load before main.js so window.L is ready) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Leaflet plugins: clustering, heatmap, mini-map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+  <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-minimap@3.6.1/dist/Control.MiniMap.min.css" />
+  <script src="https://unpkg.com/leaflet-minimap@3.6.1/dist/Control.MiniMap.min.js"></script>
+
+  <!-- Leaflet Draw (polygon / circle / rectangle geofence tools) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════
+       BOOT OVERLAY
+  ═══════════════════════════════════════════════════════ -->
+  <div id="connection-overlay">
+    <div class="boot-badge">N</div>
+    <div class="boot-title">PROJECT NEMESIS</div>
+    <div class="boot-subtitle">ACTIVE INTELLIGENCE PLATFORM · BUILD V-7.0</div>
+    <div class="boot-log"></div>
+    <div class="boot-progress-wrap"><div class="boot-progress-bar"></div></div>
+    <div class="boot-footer">SYSTEMS SECURE // WORKSPACE INITIALIZED</div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       VFX LAYERS
+  ═══════════════════════════════════════════════════════ -->
+  <div id="hex-overlay"></div>
+  <div id="scan-ring"></div>
+  <div id="scan-arc"></div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       TARGET-LOCK CROSSHAIR
+  ═══════════════════════════════════════════════════════ -->
+  <div id="crosshair" class="hidden">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="50" r="45" fill="none" stroke="var(--red)"  stroke-width="1" stroke-dasharray="4 8" class="spin-slow" />
+      <circle cx="50" cy="50" r="35" fill="none" stroke="var(--cyan)" stroke-width="0.5" />
+      <path d="M 50 0 L 50 20 M 50 80 L 50 100 M 0 50 L 20 50 M 80 50 L 100 50" stroke="var(--cyan)"  stroke-width="2" />
+      <path d="M 15 15 L 30 30 M 85 15 L 70 30 M 15 85 L 30 70 M 85 85 L 70 70"  stroke="var(--amber)" stroke-width="1.5" />
+    </svg>
+    <div class="lock-text">LOCKING</div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       MAIN GLOBE VIEWPORT
+  ═══════════════════════════════════════════════════════ -->
+  <div id="globe-container">
+    <div class="radar-sweep"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       TOPBAR
+  ═══════════════════════════════════════════════════════ -->
+  <header id="topbar">
+
+    <!-- LEFT: Logo + View Navigation Tabs -->
+    <div class="tb-left">
+      <div class="tb-logo">
+        <div class="tb-badge">N</div>
+        <div class="tb-title-block">
+          <div class="tb-name">PROJECT NEMESIS</div>
+          <div class="tb-phase">ACTIVE INTELLIGENCE · PHASE VII</div>
+        </div>
+      </div>
+
+      <nav class="tb-nav" id="tb-nav">
+        <button class="tb-tab active" id="tab-globe_3d"  data-view="globe_3d"  onclick="switchToView('globe_3d')">◉ GLOBE 3D</button>
+        <button class="tb-tab"        id="tab-map_2d"    data-view="map_2d"    onclick="switchToView('map_2d')">⊞ MAP 2D</button>
+        <button class="tb-tab"        id="tab-radar"     data-view="radar"     onclick="switchToView('radar')">◎ ATC RADAR</button>
+        <button class="tb-tab"        id="tab-orbital"   data-view="orbital"   onclick="switchToView('orbital')">⊕ ORBITAL</button>
+        <button class="tb-tab"        id="tab-maritime"  data-view="maritime"  onclick="switchToView('maritime')">⚓ MARITIME</button>
+      </nav>
+    </div>
+
+    <!-- RIGHT: Status Counters + Connection + UTC Clock -->
+    <div class="tb-right">
+      <div class="tb-stat">
+        <span class="tb-stat-lbl">SATELLITES</span>
+        <span class="tb-stat-val" id="sat-count" data-counter="sat-count">—</span>
+      </div>
+      <div class="tb-stat">
+        <span class="tb-stat-lbl">FLIGHTS</span>
+        <span class="tb-stat-val amber" id="flight-count" data-counter="flight-count">—</span>
+      </div>
+      <div class="tb-stat">
+        <span class="tb-stat-lbl">UPDATES</span>
+        <span class="tb-stat-val" id="update-count" data-counter="update-count">0</span>
+      </div>
+      <div class="tb-stat">
+        <span class="tb-stat-lbl">DATA RX</span>
+        <span class="tb-stat-val" id="data-rate" data-counter="data-rate">0 B</span>
+      </div>
+      <div class="tb-stat">
+        <span class="tb-stat-lbl">SHIPS</span>
+        <span class="tb-stat-val" id="ship-count">—</span>
+      </div>
+      <div class="tb-stat">
+        <span class="tb-stat-lbl">BACKEND</span>
+        <span class="tb-stat-val" id="connection-status">INIT</span>
+      </div>
+      <div class="tb-live">
+        <span class="live-dot"></span>
+        <span>LIVE</span>
+      </div>
+      <div id="utc-clock">0000-00-00T00:00:00Z</div>
+      <div id="system-uptime" class="tb-uptime">T+00:00:00</div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════
+       LEFT NAV COLUMN
+  ═══════════════════════════════════════════════════════ -->
+  <nav id="nav-column">
+
+    <div class="nc-section">TRACKING</div>
+
+    <div class="nc-item active" id="nc-satellites" onclick="switchToView('globe_3d'); ncActivate(this)">
+      <span class="nc-icon">🛰</span>
+      <span class="nc-label">SATELLITES</span>
+      <span class="nc-badge" id="nc-sat-count">—</span>
+    </div>
+
+    <div class="nc-item" id="nc-flights" onclick="switchToView('map_2d'); ncActivate(this)">
+      <span class="nc-icon">✈</span>
+      <span class="nc-label">FLIGHTS</span>
+      <span class="nc-badge amber" id="nc-flight-count">—</span>
+    </div>
+
+    <div class="nc-item" id="nc-ships" onclick="switchToView('maritime'); ncActivate(this)">
+      <span class="nc-icon">⚓</span>
+      <span class="nc-label">MARITIME</span>
+      <span class="nc-badge" id="nc-ship-count">—</span>
+    </div>
+
+    <div class="nc-section">INTELLIGENCE</div>
+
+    <div class="nc-item" id="nc-osint" onclick="ncToggleDrawer('osint-drawer', this)">
+      <span class="nc-icon">📡</span>
+      <span class="nc-label">OSINT FEED</span>
+      <span class="nc-badge cyan nc-pulse" id="nc-osint-badge">LIVE</span>
+    </div>
+
+    <!-- OSINT Feed Drawer (inline, toggles open below the OSINT nav item) -->
+    <div id="osint-drawer" class="nc-drawer">
+      <div class="nc-drawer-header">
+        <span>LIVE INTEL FEED</span>
+        <button class="nc-drawer-close" onclick="ncToggleDrawer('osint-drawer', document.getElementById('nc-osint'))">✕</button>
+      </div>
+      <div id="live-intel-feed">
+        <div class="news-card severity-medium">
+          <div class="news-card-source">
+            <span>SYSTEM</span>
+            <span class="live-tag">LIVE</span>
+          </div>
+          <div class="news-card-headline">Intercepting OSINT streams — awaiting feed data</div>
+          <div class="news-card-meta"><span id="feed-status">CONNECTING...</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nc-item" id="nc-maneuvers" onclick="document.getElementById('dp-maneuvers').scrollIntoView({behavior:'smooth'})">
+      <span class="nc-icon">⬆</span>
+      <span class="nc-label">MANEUVERS</span>
+      <span class="nc-badge amber" id="nc-man-count">0</span>
+    </div>
+
+    <div class="nc-item" id="nc-knowledge" onclick="document.getElementById('dp-graph').scrollIntoView({behavior:'smooth'})">
+      <span class="nc-icon">◈</span>
+      <span class="nc-label">ENTITY GRAPH</span>
+      <span class="nc-badge" id="nc-graph-count">—</span>
+    </div>
+
+    <div class="nc-section">ENVIRONMENT</div>
+
+    <div class="nc-item" id="nc-weather" onclick="document.getElementById('dp-weather').scrollIntoView({behavior:'smooth'})">
+      <span class="nc-icon">☀</span>
+      <span class="nc-label">SPACE WEATHER</span>
+      <span class="nc-badge green" id="nc-weather-level">—</span>
+    </div>
+
+    <div class="nc-item" id="nc-scenarios">
+      <span class="nc-icon">⏺</span>
+      <span class="nc-label">SCENARIOS</span>
+      <span class="nc-badge" id="nc-scenario-count">REC</span>
+    </div>
+
+    <div class="nc-item" id="nc-radar" onclick="switchToView('orbital'); ncActivate(this)">
+      <span class="nc-icon">◎</span>
+      <span class="nc-label">ORBITAL VIEW</span>
+    </div>
+
+    <!-- Spacer -->
+    <div class="nc-spacer"></div>
+
+    <!-- System status at the bottom of nav -->
+    <div class="nc-footer">
+      <div class="nc-footer-row">
+        <span>SGP4</span>
+        <span class="green">ONLINE</span>
+      </div>
+      <div class="nc-footer-row">
+        <span>AIS</span>
+        <span class="cyan">ACTIVE</span>
+      </div>
+      <div class="nc-footer-row">
+        <span>WS</span>
+        <span id="nc-ws-status" class="amber">INIT</span>
+      </div>
+    </div>
+
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════
+       RIGHT DETAIL PANEL
+  ═══════════════════════════════════════════════════════ -->
+  <aside id="detail-panel">
+
+    <!-- ── TARGET LOCK ─────────────────────────────────── -->
+    <div class="dp-block" id="dp-target-lock">
+      <div class="dp-block-title">
+        <span>TARGET LOCK</span>
+        <span class="dp-status-pill standby" id="dp-lock-pill">STANDBY</span>
+      </div>
+
+      <div class="dp-designation" id="detail-name" data-counter="detail-name">SELECT OBJECT</div>
+
+      <div class="dp-data-rows">
+        <div class="dp-row">
+          <span class="dp-lbl">ID / NORAD</span>
+          <span class="dp-val" id="detail-id" data-counter="detail-id">—</span>
+        </div>
+        <div class="dp-row">
+          <span class="dp-lbl">ALTITUDE</span>
+          <span class="dp-val amber" id="detail-alt" data-counter="detail-alt">—</span>
+        </div>
+        <div class="dp-row">
+          <span class="dp-lbl">LATITUDE</span>
+          <span class="dp-val cyan" id="detail-lat" data-counter="detail-lat">—</span>
+        </div>
+        <div class="dp-row">
+          <span class="dp-lbl">LONGITUDE</span>
+          <span class="dp-val cyan" id="detail-lon" data-counter="detail-lon">—</span>
+        </div>
+      </div>
+
+      <!-- Overpass prediction -->
+      <div id="overpass-container" style="display:none; margin-top:10px;">
+        <div class="dp-sub-title">ORBITAL PREDICTION</div>
+        <div id="overpass-data"></div>
+      </div>
+
+      <!-- Activity Sparkline -->
+      <div style="margin-top:12px;">
+        <div class="dp-sub-title">TELEMETRY ACTIVITY</div>
+        <svg class="dp-sparkline" id="activity-sparkline" viewBox="0 0 200 24" preserveAspectRatio="none">
+          <!-- Bars populated by JS -->
+        </svg>
+      </div>
+
+      <!-- Satellite image / profile -->
+      <div id="sat-profile-panel"></div>
+    </div>
+
+    <!-- ── SURVEILLANCE LINK ───────────────────────────── -->
+    <div class="dp-block" id="dp-surveillance">
+      <div class="dp-block-title">SURVEILLANCE LINK</div>
+      <div id="cctv-container">
+        <div class="cctv-overlay"></div>
+        <div class="cctv-text">NO SIGNAL<br>AWAITING TARGET LOCK</div>
+        <video id="cctv-video" loop muted playsinline style="display:none;">
+          <source src="https://cdn.pixabay.com/video/2021/08/04/83863-584738595_tiny.mp4" type="video/mp4" />
+        </video>
+      </div>
+    </div>
+
+    <!-- ── ASSET ROSTER ────────────────────────────────── -->
+    <div class="dp-block dp-flex" id="dp-roster">
+      <div class="dp-block-title">ASSET ROSTER</div>
+      <ul id="sat-list">
+        <li class="sat-item-empty">Awaiting telemetry…</li>
+      </ul>
+    </div>
+
+    <!-- ── SPACE WEATHER ──────────────────────────────── -->
+    <div class="dp-block" id="dp-weather">
+      <div class="dp-block-title">SPACE WEATHER</div>
+      <div class="weather-grid">
+        <div class="weather-cell">
+          <div class="w-lbl">Kp INDEX</div>
+          <div class="weather-val" id="weather-kp">—</div>
+        </div>
+        <div class="weather-cell">
+          <div class="w-lbl">SOLAR WIND</div>
+          <div class="weather-val amber" id="weather-wind">—</div>
+        </div>
+        <div class="weather-cell">
+          <div class="w-lbl">ALERT</div>
+          <div class="weather-val green" id="weather-level">—</div>
+        </div>
+      </div>
+      <div class="dp-source">SOURCE: NOAA SWPC REAL-TIME</div>
+    </div>
+
+    <!-- ── MANEUVER DETECTIONS ───────────────────────── -->
+    <div class="dp-block" id="dp-maneuvers">
+      <div class="dp-block-title">MANEUVER DETECTIONS</div>
+      <ul id="maneuver-list">
+        <li class="dp-empty-row">Monitoring orbital elements…</li>
+      </ul>
+    </div>
+
+    <!-- ── NLP KNOWLEDGE GRAPH ─────────────────────────── -->
+    <div class="dp-block" id="dp-graph">
+      <div class="dp-block-title">NLP KNOWLEDGE GRAPH</div>
+      <div id="knowledge-graph-container" style="width:100%; height:180px; position:relative;"></div>
+      <div id="graph-status" style="font-size:8px; color:rgba(0,180,200,0.4); margin-top:4px; letter-spacing:.1em;">LOADING ENTITY GRAPH...</div>
+    </div>
+
+  </aside>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SATELLITE HOVER TOOLTIP
+  ═══════════════════════════════════════════════════════ -->
+  <div id="sat-tooltip"></div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       KEYBOARD SHORTCUTS OVERLAY
+  ═══════════════════════════════════════════════════════ -->
+  <div id="shortcuts-tooltip">
+    <div style="font-size:8px;color:var(--cyan);letter-spacing:.15em;margin-bottom:8px;border-bottom:1px solid rgba(45,114,210,0.15);padding-bottom:6px;">KEYBOARD SHORTCUTS</div>
+    <div class="shortcut-row"><span class="shortcut-key">1-5</span><span class="shortcut-desc">Switch Views</span></div>
+    <div class="shortcut-row"><span class="shortcut-key">F</span><span class="shortcut-desc">Search Entities</span></div>
+    <div class="shortcut-row"><span class="shortcut-key">H</span><span class="shortcut-desc">Toggle Heatmap</span></div>
+    <div class="shortcut-row"><span class="shortcut-key">G</span><span class="shortcut-desc">Toggle Grid</span></div>
+    <div class="shortcut-row"><span class="shortcut-key">T</span><span class="shortcut-desc">Toggle Trails</span></div>
+    <div class="shortcut-row"><span class="shortcut-key">M</span><span class="shortcut-desc">Measure Distance</span></div>
+    <div class="shortcut-row"><span class="shortcut-key">ESC</span><span class="shortcut-desc">Cancel / Close</span></div>
+    <div class="shortcut-row"><span class="shortcut-key">?</span><span class="shortcut-desc">Toggle This Help</span></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       BOTTOM SIGINT TICKER
+  ═══════════════════════════════════════════════════════ -->
+  <div id="bottom-ticker">
+    <div class="ticker-label">SIGINT</div>
+    <div class="ticker-scroll-wrapper">
+      <div class="ticker-track"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       TELEMETRY ASSET TABLE
+  ═══════════════════════════════════════════════════════ -->
+  <div id="asset-table">
+    <button class="at-expand-btn" id="at-expand-toggle" onclick="
+      const t = document.getElementById('asset-table');
+      t.classList.toggle('expanded');
+      this.textContent = t.classList.contains('expanded') ? '▾ COLLAPSE' : '▴ EXPAND';
+    ">▴ EXPAND</button>
+    <div class="at-header-row">
+      <span class="at-col at-type">TYPE</span>
+      <span class="at-col at-id">ID / CALLSIGN</span>
+      <span class="at-col at-name">DESIGNATION</span>
+      <span class="at-col at-lat">LATITUDE</span>
+      <span class="at-col at-lon">LONGITUDE</span>
+      <span class="at-col at-alt">ALTITUDE</span>
+      <span class="at-col at-vel">VELOCITY</span>
+      <span class="at-col at-status">STATUS</span>
+    </div>
+    <div id="asset-rows" style="overflow-y:auto;">
+      <div class="at-row at-placeholder">
+        <span class="at-col at-type">—</span>
+        <span class="at-col at-id">AWAITING TELEMETRY</span>
+        <span class="at-col at-name">—</span>
+        <span class="at-col at-lat">—</span>
+        <span class="at-col at-lon">—</span>
+        <span class="at-col at-alt">—</span>
+        <span class="at-col at-vel">—</span>
+        <span class="at-col at-status">—</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leaflet street-level map container -->
+  <div id="street-map"></div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       INLINE UI CONTROLLER (wires topbar tabs + nav column)
+  ═══════════════════════════════════════════════════════ -->
+  <script>
+    /** Switch the active view and update topbar tab highlight */
+    function switchToView(id) {
+      // Call views module if ready
+      if (window.__nemesisViews) window.__nemesisViews.switchView(id);
+      // Highlight the correct tab
+      document.querySelectorAll('.tb-tab').forEach(t => t.classList.remove('active'));
+      const btn = document.getElementById('tab-' + id);
+      if (btn) btn.classList.add('active');
+    }
+
+    /** Toggle a nav drawer open/closed */
+    function ncToggleDrawer(drawerId, navItem) {
+      const drawer = document.getElementById(drawerId);
+      if (!drawer) return;
+      const isOpen = drawer.classList.contains('open');
+      // Close all drawers
+      document.querySelectorAll('.nc-drawer.open').forEach(d => d.classList.remove('open'));
+      document.querySelectorAll('.nc-item.drawer-open').forEach(n => n.classList.remove('drawer-open'));
+      // Open this one if it was closed
+      if (!isOpen) {
+        drawer.classList.add('open');
+        if (navItem) navItem.classList.add('drawer-open');
+      }
+    }
+
+    /** Mark a nav item as active (clear others) */
+    function ncActivate(el) {
+      document.querySelectorAll('#nav-column .nc-item').forEach(i => i.classList.remove('active'));
+      if (el) el.classList.add('active');
+    }
+  </script>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
