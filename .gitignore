@@ -28,3 +28,8 @@ Thumbs.db
 .idea/
 *.swp
 *.swo
+
+# Local agent context and technical specifications (do not push to GitHub)
+CONTEXT.md
+AGENTS.md
+NEMESIS_THEME_SPEC_LEAN.md
