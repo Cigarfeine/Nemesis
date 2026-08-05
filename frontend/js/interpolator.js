@@ -86,12 +86,16 @@ export class NemesisInterpolator {
 
   ingestShips(ships) {
     const now = performance.now();
-    ships.forEach(s => {
-      const id = s.mmsi || Math.random();
+    ships.forEach((s, idx) => {
+      const id = s.mmsi || s.name || `ship-${idx}`;
       this._ships.set(id, {
         data:       { ...s },
         lastUpdate: now,
       });
+    });
+    const ids = new Set(ships.map((s, idx) => s.mmsi || s.name || `ship-${idx}`));
+    this._ships.forEach((_, id) => {
+      if (!ids.has(id)) this._ships.delete(id);
     });
   }
 

@@ -172,7 +172,6 @@ export class NemesisTelemetry {
     NemesisUI.updateCounter('sat-count', msg.count);
     NemesisUI.updateCounter('update-count', this._totalUpdates);
     NemesisUI.updateCounter('data-rate', this._formatBytes(this._byteCount));
-    NemesisUI.populateSatList(msg.satellites);
 
     window.dispatchEvent(new CustomEvent('telemetry:update', { detail: { satellites: msg.satellites } }));
 
@@ -207,7 +206,6 @@ export class NemesisTelemetry {
     NemesisUI.setProgress(60);
     window.dispatchEvent(new CustomEvent('telemetry:update', { detail: { satellites: data.satellites } }));
     NemesisUI.updateCounter('sat-count', data.count);
-    NemesisUI.populateSatList(data.satellites);
   }
 
   async _fetchFlightSnapshot() {

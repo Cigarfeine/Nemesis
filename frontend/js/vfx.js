@@ -26,7 +26,11 @@ export class NemesisVFX {
     resize();
     window.addEventListener('resize', resize);
     let offsetX = 0, offsetY = 0;
-    const render = () => {
+    let lastFrame = 0;
+    const render = (time) => {
+      requestAnimationFrame(render);
+      if (time - lastFrame < 33) return;
+      lastFrame = time;
       ctx.clearRect(0, 0, W, H);
       for (const star of stars) {
         const x = (star.x + offsetX * star.depth) % W;
@@ -49,9 +53,8 @@ export class NemesisVFX {
       }
       offsetX += 0.015;
       offsetY += 0.008;
-      requestAnimationFrame(render);
     };
-    render();
+    requestAnimationFrame(render);
   }
 
   static _generateStars(W, H) {
@@ -131,7 +134,11 @@ export class NemesisVFX {
       }
     };
     let frameCount = 0;
-    const render = () => {
+    let lastFrame = 0;
+    const render = (time) => {
+      requestAnimationFrame(render);
+      if (time - lastFrame < 33) return;
+      lastFrame = time;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       frameCount++;
       if (frameCount % 3 === 0) spawnParticle();
@@ -145,9 +152,8 @@ export class NemesisVFX {
         ctx.fillStyle = `${p.color}${p.life.toFixed(2)})`;
         ctx.fill();
       }
-      requestAnimationFrame(render);
     };
-    render();
+    requestAnimationFrame(render);
   }
 
   static injectKeyframes() {

@@ -276,7 +276,7 @@ export class NemesisGlobe {
       .pointColor(d    => this._pointColor(d))
       .pointRadius(d   => this._pointRadius(d))
       .pointResolution(8)
-      .pointsMerge(false)
+      .pointsMerge(true)
       .pointLabel(d    => this._pointLabel(d));
   }
 
@@ -894,19 +894,28 @@ export class NemesisGlobe {
   update(satellites) {
     if (!this._globe) return;
     this._satellites = satellites;
-    this._applyFilters();
+    this._scheduleFilterUpdate();
     const el = document.getElementById('globe-sat-tally');
-    if (el) el.textContent = `${satellites.length} SAT`;
+    if (el && el.textContent !== `${satellites.length} SAT`) el.textContent = `${satellites.length} SAT`;
   }
 
   updateFlights(flights) {
     if (!this._globe) return;
     this._flights = flights || [];
-    this._applyFilters();
+    this._scheduleFilterUpdate();
   }
 
   updateShips(ships) {
     this._ships = ships || [];
+  }
+
+  _scheduleFilterUpdate() {
+    if (this._filterUpdateScheduled) return;
+    this._filterUpdateScheduled = true;
+    requestAnimationFrame(() => {
+      this._filterUpdateScheduled = false;
+      this._applyFilters();
+    });
   }
 
   _applyFilters() {
@@ -994,6 +1003,11 @@ export class NemesisGlobe {
     if (this._selectedSat && this._selectedSat.lat && this._selectedSat.lon) {
       this._globe.htmlElementsData([this._selectedSat])
         .htmlElement(d => {
+          if (this._cachedSelectedEl && this._cachedSelectedId === d.id) {
+            const lbl = this._cachedSelectedEl.querySelector('.trk-label');
+            if (lbl && lbl.textContent !== `TRK // ${d.name}`) lbl.textContent = `TRK // ${d.name}`;
+            return this._cachedSelectedEl;
+          }
           const el = document.createElement('div');
           el.innerHTML = `
             <div style="position:relative; width:48px; height:48px; transform:translate(-50%,-50%); pointer-events:none;">
@@ -1002,9 +1016,11 @@ export class NemesisGlobe {
               <div style="position:absolute; bottom:0; left:0; width:12px; height:12px; border:2px solid #00ff88; border-right:none; border-top:none;"></div>
               <div style="position:absolute; bottom:0; right:0; width:12px; height:12px; border:2px solid #00ff88; border-left:none; border-top:none;"></div>
               <div style="position:absolute; top:50%; left:50%; width:2px; height:2px; background:#00ff88; transform:translate(-50%,-50%);"></div>
-              <div style="position:absolute; bottom:-18px; width:120px; left:-36px; text-align:center; font:10px 'Share Tech Mono',mono; color:#00ff88; padding:2px; background:rgba(0,10,20,0.6); border:1px solid rgba(0,255,136,0.3);">TRK // ${d.name}</div>
+              <div class="trk-label" style="position:absolute; bottom:-18px; width:120px; left:-36px; text-align:center; font:10px 'Share Tech Mono',mono; color:#00ff88; padding:2px; background:rgba(0,10,20,0.6); border:1px solid rgba(0,255,136,0.3);">TRK // ${d.name}</div>
             </div>
           `;
+          this._cachedSelectedId = d.id;
+          this._cachedSelectedEl = el;
           return el;
         })
         .htmlLat(d => d.lat)

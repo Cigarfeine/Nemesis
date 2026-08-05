@@ -152,11 +152,24 @@ export class NemesisUI {
 
   static populateSatList(satellites) {
     const list = document.getElementById('sat-list');
-    if (!list) return;
+    if (!list || !satellites || !satellites.length) return;
 
     const sorted = [...satellites]
       .sort((a, b) => b.alt_km - a.alt_km)
       .slice(0, 40);
+
+    const idsKey = sorted.map(s => s.id).join(',');
+    if (list._lastIdsKey === idsKey && list.children.length === sorted.length) {
+      // In-place update without DOM rebuild or reflow
+      for (let i = 0; i < sorted.length; i++) {
+        const item = list.children[i];
+        const altSpan = item.querySelector('.sat-alt');
+        const newAlt = `${Math.round(sorted[i].alt_km)}km`;
+        if (altSpan && altSpan.textContent !== newAlt) altSpan.textContent = newAlt;
+      }
+      return;
+    }
+    list._lastIdsKey = idsKey;
 
     list.innerHTML = sorted.map(sat => `
       <li class="sat-item" data-id="${sat.id}" onclick="window.__nemesisFocus && window.__nemesisFocus(${sat.id})">

@@ -331,9 +331,10 @@ async def satellite_snapshot() -> JSONResponse:
     if not tle_service.catalogue:
         raise HTTPException(status_code=503, detail="TLE catalogue is not loaded yet.")
 
+    positions = await asyncio.to_thread(tle_service.compute_positions)
     payload = _build_satellite_payload(
         msg_type="SAT_SNAPSHOT",
-        positions=tle_service.compute_positions(),
+        positions=positions,
     )
     return JSONResponse(payload)
 
@@ -600,25 +601,25 @@ async def websocket_telemetry(websocket: WebSocket) -> None:
 
     await telemetry_manager.connect(websocket)
     try:
-        positions = tle_service.compute_positions()
+        positions = await asyncio.to_thread(tle_service.compute_positions)
         _last_positions = {
             int(sat["id"]): (float(sat["lat"]), float(sat["lon"]))
             for sat in positions
             if sat.get("id") is not None
         }
-        snapshot_text = _build_compressed_payload(
+        snapshot_text, snapshot_dict = _build_compressed_payload(
             msg_type="SAT_SNAPSHOT",
             positions=positions,
             extra={"delta": False},
         )
         await websocket.send_text(snapshot_text)
-        await _record_scenario_snapshot_safely("satellites", json.loads(snapshot_text))
+        await _record_scenario_snapshot_safely("satellites", snapshot_dict)
 
         tick_count = 0
 
         while True:
             await asyncio.sleep(TELEMETRY_INTERVAL_SECONDS)
-            positions = tle_service.compute_positions()
+            positions = await asyncio.to_thread(tle_service.compute_positions)
             tick_count += 1
 
             if tick_count % TELEMETRY_FULL_UPDATE_EVERY_TICKS == 0:
@@ -627,7 +628,7 @@ async def websocket_telemetry(websocket: WebSocket) -> None:
                     for sat in positions
                     if sat.get("id") is not None
                 }
-                payload_text = _build_compressed_payload(
+                payload_text, payload_dict = _build_compressed_payload(
                     msg_type="SAT_UPDATE",
                     positions=positions,
                     extra={"delta": False},
@@ -658,14 +659,14 @@ async def websocket_telemetry(websocket: WebSocket) -> None:
                     for sat in positions
                     if sat.get("id") is not None
                 }
-                payload_text = _build_compressed_payload(
+                payload_text, payload_dict = _build_compressed_payload(
                     msg_type="SAT_UPDATE",
                     positions=changed,
                     extra={"total": len(positions), "delta": True},
                 )
 
             await websocket.send_text(payload_text)
-            await _record_scenario_snapshot_safely("satellites", json.loads(payload_text))
+            await _record_scenario_snapshot_safely("satellites", payload_dict)
 
     except WebSocketDisconnect:
         telemetry_manager.disconnect(websocket)
@@ -774,7 +775,7 @@ async def websocket_ships(websocket: WebSocket) -> None:
         await _record_scenario_snapshot_safely("ships", snapshot)
 
         while True:
-            await asyncio.sleep(SHIP_INTERVAL_SECONDS)
+            await asyncio.sleep(SHIP_INTERVAL_SECONDS + 2)
             payload = _build_ship_payload(msg_type="SHIP_UPDATE", ships=ais_service.get_ships())
             await websocket.send_text(json.dumps(payload))
             await _record_scenario_snapshot_safely("ships", payload)
@@ -954,7 +955,7 @@ def _build_compressed_payload(
     msg_type: str,
     positions: list[dict[str, Any]] | None = None,
     extra: dict[str, Any] | None = None,
-) -> str:
+) -> tuple[str, dict[str, Any]]:
     if positions is None:
         positions = tle_service.compute_positions()
 
@@ -969,7 +970,7 @@ def _build_compressed_payload(
 
     # Keep payload schema stable for frontend consumers.
     # Compression hooks can be layered at transport level if required.
-    return json.dumps(payload)
+    return json.dumps(payload), payload
 
 
 async def _build_flight_payload(

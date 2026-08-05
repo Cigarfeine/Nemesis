@@ -335,7 +335,7 @@ class OSINTService:
             if not text:
                 continue
 
-            doc = self._nlp(text)
+            doc = await asyncio.to_thread(self._nlp, text)
             article_entities: dict[str, tuple[str, str]] = {}
 
             for ent in doc.ents:

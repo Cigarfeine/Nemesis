@@ -117,6 +117,24 @@ export class NemesisKnowledgeGraph {
     const nodes = data.nodes || data.graph?.nodes || [];
     const links = data.links || data.graph?.links || [];
     if (this._graph && nodes && links) {
+      const newHash = `${nodes.length}-${links.length}-${nodes.map(n => n.id || n.label || '').join(',')}`;
+      if (this._lastGraphHash === newHash) return;
+      this._lastGraphHash = newHash;
+
+      if (this._data && this._data.nodes) {
+        const posMap = new Map();
+        this._data.nodes.forEach(n => {
+          const key = n.id || n.label;
+          if (key) posMap.set(key, { x: n.x, y: n.y, vx: n.vx, vy: n.vy });
+        });
+        nodes.forEach(n => {
+          const prev = posMap.get(n.id || n.label);
+          if (prev && prev.x !== undefined) {
+            n.x = prev.x; n.y = prev.y; n.vx = prev.vx; n.vy = prev.vy;
+          }
+        });
+      }
+
       this._data = { nodes, links };
       this._graph.graphData(this._data);
       
